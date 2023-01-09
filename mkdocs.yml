@@ -1,0 +1,28 @@
+site_name: Flask Hack Tutorial
+
+theme:
+  icon:
+    logo: material/brain
+  name: material
+  language: en
+  features:
+      - navigation.tabs
+      - navigation.footer
+
+markdown_extensions:
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: 
+    - Introduction: index.md
+    - About Me: about.md
+
+  - Flask Microframework:
+    - Introduction: flask/chapter-0/index.md
+    - Installation: flask/chapter-1/index.md
+    - Minimal Application: flask/chapter-2/index.md
