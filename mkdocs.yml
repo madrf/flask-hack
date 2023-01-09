@@ -26,3 +26,4 @@ nav:
     - Introduction: flask/chapter-0/index.md
     - Installation: flask/chapter-1/index.md
     - Minimal Application: flask/chapter-2/index.md
+    - Routing URL: flask/chapter-3/index.md

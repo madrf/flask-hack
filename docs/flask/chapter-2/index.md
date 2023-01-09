@@ -21,6 +21,6 @@ def about_page():
 
 ```
 
-Now our application have 2 endpoint at `/` and `/about`. Now running our application using `python main.py` and then open `localhost:8000/about`
+Now our application have 2 endpoint at `/` and `/about`. Now running our application using `python main.py` and then open `localhost:5000/about`
 
 ![about page](2.png)
