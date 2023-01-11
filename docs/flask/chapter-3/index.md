@@ -32,3 +32,19 @@ for dynamic url you can specify the type of your variable.
 | float | accepts positive floating point values |
 | path | like string but also accepts slashes |
 | uuid | accepts UUID strings |
+
+
+``` python
+# portfolio/main.py
+
+...
+
+@app.route('/hello/<string:name>')
+def hello_name(name):
+    return f'Hello {name}'
+
+...
+
+```
+
+So, all the variabel inside name is turn into string.
