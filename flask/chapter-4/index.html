@@ -9,17 +9,15 @@
       
       
       
-        <link rel="prev" href="../chapter-2/">
+        <link rel="prev" href="../chapter-3/">
       
-      
-        <link rel="next" href="../chapter-4/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
     
     
       
-        <title>Routing URL - Flask Hack Tutorial</title>
+        <title>Templating - Flask Hack Tutorial</title>
       
     
     
@@ -67,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#routing-url" class="md-skip">
+        <a href="#tempalate-and-html" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Routing URL
+              Templating
             
           </span>
         </div>
@@ -361,6 +359,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        Routing URL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -372,24 +384,41 @@
         
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Routing URL
-      </a>
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Templating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-4/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         Templating
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#html-template" class="md-nav__link">
+    HTML Template
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -421,6 +450,21 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#html-template" class="md-nav__link">
+    HTML Template
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -435,64 +479,42 @@
 
 
 
-<h1 id="routing-url">Routing URL</h1>
-<p>Now our application have 2 endpoint route <code>/</code> and <code>/about</code>. It is possible to build url dynamically bny adding variabel and parameter. Now let's create new dynamic route that have variabel name.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># portfolio/main.py</span>
-
-<span class="o">...</span>
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/hello/&lt;name&gt;&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">hello_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
-
-<span class="o">...</span>
+<h1 id="tempalate-and-html">Tempalate and HTML</h1>
+<h2 id="html-template">HTML Template</h2>
+<p>So far we can acces our application running on <code>localhost:5000</code> and return views to the user. Instead return text into user we're gonna return HTML (the proper way).</p>
+<div class="highlight"><pre><span></span><code>portfolio/          # Our project name
+    - main.py       # Flask app
+    - templates/    # Templates folder
+        - home.html
 </code></pre></div>
-<p>run our application and open <code>localhost:5000/hello/Danny</code></p>
-<p><img alt="dynamic name" src="1.png" /></p>
-<p>variable <code>Danny</code> at url is dynamic. You can pass variabel that you want. Now, lets try <code>localhost:5000/hello/james</code></p>
-<p><img alt="dynamic name 2" src="2.png" /></p>
-<p>for dynamic url you can specify the type of your variable.</p>
-<table>
-<thead>
-<tr>
-<th align="left">types</th>
-<th align="left">description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">string</td>
-<td align="left">(default) accepts any text without a slash</td>
-</tr>
-<tr>
-<td align="left">int</td>
-<td align="left">accepts positive integers</td>
-</tr>
-<tr>
-<td align="left">float</td>
-<td align="left">accepts positive floating point values</td>
-</tr>
-<tr>
-<td align="left">path</td>
-<td align="left">like string but also accepts slashes</td>
-</tr>
-<tr>
-<td align="left">uuid</td>
-<td align="left">accepts UUID strings</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><span class="c1"># portfolio/main.py</span>
+<p>create folder <code>templates</code> inside your project and create new file <code>home.html</code>. For home page we're gonna user our <code>home.html</code> </p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- portfolio/templates/home.html --&gt;</span>
 
-<span class="o">...</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Portfolio<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My Portfolio Blog<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is my first post.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is my second post.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is my third post.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/hello/&lt;string:name&gt;&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">hello_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
-
-<span class="o">...</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>So, all the variabel inside name is turn into string.</p>
+<p>and now let's change our views at route <code>/</code>. Automaticcaly flask search our template inside <code>templates</code> folder</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>
+   <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;home.html&#39;</span><span class="p">)</span>
+
+   <span class="o">...</span>
+</code></pre></div>
+<p>restart our application and running again. Then acces <code>localhost:5000/</code> and you gonna see our homepage change.</p>
+<p><img alt="home page" src="1.png" /></p>
 
 
 
@@ -514,7 +536,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../chapter-2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Minimal Application" rel="prev">
+          <a href="../chapter-3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Routing URL" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -523,26 +545,11 @@
                 <span class="md-footer__direction">
                   Previous
                 </span>
-                Minimal Application
+                Routing URL
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../chapter-4/" class="md-footer__link md-footer__link--next" aria-label="Next: Templating" rel="next">
-            <div class="md-footer__title">
-              <div class="md-ellipsis">
-                <span class="md-footer__direction">
-                  Next
-                </span>
-                Templating
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
